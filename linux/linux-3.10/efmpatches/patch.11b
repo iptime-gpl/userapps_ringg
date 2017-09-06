@@ -1,0 +1,138 @@
+---------------------------------------------------------------------
+Title   A2003NM support patch
+Date    2017.03.13
+Who     hykim
+Product A2003NM
+Tree    rtlac
+Files
+	M arch/rlx/Kconfig
+	M configs/config.97f.8812br.92er.8367r
+	M drivers/char/rtl_gpio.c
+	M drivers/char/rtl_gpio_9xD.c
+	M drivers/mtd/rtkxxpart.c
+	M drivers/net/rtl819x/rtl819x_swNic.c
+	M drivers/net/rtl819x/rtl865x_proc_debug.c
+	M drivers/net/rtl819x/rtl_nic.c
+	M drivers/net/rtl819x/AsicDriver/rtl865x_asicL2.c
+	M drivers/net/rtl819x/AsicDriver/rtl865xc_asicregs.h
+	M drivers/net/rtl819x/igmpsnooping/rtl865x_igmpsnooping_local.h
+	M drivers/net/rtl819x/l3Driver/rtl865x_multicast.c
+	M drivers/net/rtl819x/rtl8367r/rtk_api.c
+	M drivers/net/wireless/rtl8192cd/8192cd.h
+	M drivers/net/wireless/rtl8192cd/8192cd_sme.c
+	M include/net/netfilter/nf_conntrack.h
+	M include/net/netfilter/nf_conntrack_tuple.h
+	M include/net/rtl/rtl865x_netif.h
+	M include/net/rtl/rtl_nic.h
+	M include/uapi/linux/if_bridge.h
+	M include/uapi/linux/sysctl.h
+	M include/uapi/linux/netfilter/nf_conntrack_tuple_common.h
+	M net/Kconfig
+	M net/bridge/Kconfig
+	M net/bridge/br_forward.c
+	M net/bridge/br_input.c
+	M net/bridge/br_ioctl.c
+	M net/bridge/br_private.h
+	M net/bridge/br_stp_if.c
+	M net/core/Makefile
+	A net/core/devutil.c
+	M net/core/dev.c
+	M net/ipv4/Kconfig
+	M net/ipv4/Makefile
+	A net/ipv4/twinip.c
+	A net/ipv4/smart_qos_mon.c
+	M net/ipv4/ip_forward.c
+	M net/ipv4/ip_input.c
+	M net/ipv4/ip_output.c
+	M net/ipv4/ipmr.c
+	M net/ipv4/sysctl_net_ipv4.c
+	M net/ipv4/netfilter/Kconfig
+	M net/ipv4/netfilter/Makefile
+	A net/ipv4/netfilter/nf_nat_bnet.c
+	A net/ipv4/netfilter/nf_nat_proto_esp.c
+	A net/ipv4/netfilter/nf_conntrack_proc.c
+	M net/ipv4/netfilter/nf_conntrack_l3proto_ipv4_compat.c
+	M net/netfilter/Kconfig
+	M net/netfilter/Makefile
+	A net/netfilter/xt_NETDETECT_handle.c
+	A net/netfilter/xt_NETDETECT.c
+	A net/netfilter/nf_conntrack_bnet.c
+	A net/netfilter/nf_conntrack_proto_esp.c
+	M net/netfilter/nf_conntrack_core.c
+	M net/netfilter/nf_conntrack_ftp.c
+	M net/netfilter/nf_conntrack_proto_tcp.c
+	M net/netfilter/nf_conntrack_proto_udp.c
+	M net/netfilter/nf_conntrack_standalone.c
+	M net/rtl/fastpath/fastpath_common.c
+	M net/rtl/features/rtl_features.c
+	M rtkload/Makefile
+	A include/linux/netfilter/nf_conntrack_bnet.h
+	A include/linux/netfilter/nf_conntrack_proto_esp.h
+	A include/linux/netfilter/xt_NETDETECT.h
+
+
+	M ../toolchain/rsdk-4.6.4-5281-EB-3.10-0.9.33-m32ub-20141111/config/kernel/linux/netfilter/nf_conntrack_tuple_common.h
+	M ../toolchain/rsdk-4.6.4-5281-EB-3.10-0.9.33-m32ub-20141111/include/linux/if_bridge.h
+	M ../toolchain/rsdk-4.6.4-5281-EB-3.10-0.9.33-m32ub-20141111/include/linux/sysctl.h
+	M ../toolchain/rsdk-4.6.4-5281-EB-3.10-0.9.33-m32ub-20141111/include/linux/netfilter/nf_conntrack_tuple_common.h
+	M ../toolchain/rsdk-4.6.4-5281-EB-3.10-0.9.33-m32ub-20141111/include/sys/types.h
+
+	M ../toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/config/kernel/linux/netfilter/nf_conntrack_tuple_common.h
+	M ../toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/include/linux/if_bridge.h
+	M ../toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/include/linux/sysctl.h
+	M ../toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/include/linux/netfilter/nf_conntrack_tuple_common.h
+	M ../toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/include/sys/types.h
+
+Contents
+	Support for A2003NM
+---------------------------------------------------------------------
+Title   8309M support patch
+Date    2017.04.21
+Who     hykim
+Product All products for using 8309M switch
+Tree    rtlac
+Files
+	M drivers/net/rtl819x/Kconfig
+	M drivers/net/rtl819x/rtl865x_proc_debug.c
+	M drivers/net/rtl819x/rtl_nic.c
+	M drivers/net/rtl819x/AsicDriver/rtl865x_asicL2.c
+	M drivers/net/rtl819x/AsicDriver/rtl865x_asicL2.h
+	M drivers/net/rtl819x/AsicDriver/rtl865xc_asicregs.h
+	M drivers/net/rtl819x/common/Makefile
+	M drivers/net/rtl819x/rtl865x/Makefile
+	M drivers/char/rtl_gpio.c
+	M drivers/char/rtl_gpio_9xD.c
+	M rtkload/Makefile
+	M net/ipv4/twinip.c
+
+	A drivers/net/rtl819x/rtl8309m
+
+Contents
+	1. RTL8309M Switch driver added
+	2. When LAN/WAN swich is differ, port status proc and port mirror proc patch (RTL8309M)
+	3. 8197FS_8309M_PATCH
+	4. rtl_gpio.c/rtl_gpio_9xD.c -> wps_function_off with CONFIG_RTL8192CD
+	5. Twin IP debug code remove
+---------------------------------------------------------------------
+Title   TwinIP bug fix
+Date    2017.05.18
+Who     hykim
+Product All products for using 11B SDK
+Tree    rtlac
+Files
+	M net/ipv4/twinip.c
+
+Contents
+	1. 819X Twin ip bug fix(rx and tx frames from br0 to twin ip handler is expected. but frames from other device too. e,g.. eth0, eth1)
+---------------------------------------------------------------------
+Title   8309M private IPTV support
+Date    2017.05.26
+Who     hykim
+Product All products for using 8309M Switch
+Tree    rtlac
+Files
+	M drivers/net/rtl819x/rtl_nic.c
+
+Contents
+	1. Private IPTV support for RTL8309M patch (fdbmanage proc included)
+---------------------------------------------------------------------

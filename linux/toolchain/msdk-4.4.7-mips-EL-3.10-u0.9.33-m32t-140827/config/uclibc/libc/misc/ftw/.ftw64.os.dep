@@ -1,0 +1,153 @@
+libc/misc/ftw/ftw64.os: libc/misc/ftw/ftw64.c include/libc-symbols.h \
+ include/bits/uClibc_arch_features.h include/sgidefs.h \
+ libc/misc/ftw/ftw.c include/features.h include/bits/uClibc_config.h \
+ include/sys/cdefs.h include/libc-internal.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h \
+ include/errno.h include/bits/errno.h ../kernel/linux/errno.h \
+ ../kernel/asm/errno.h ../kernel/asm-generic/errno-base.h \
+ include/dirent.h include/bits/types.h include/bits/wordsize.h \
+ include/bits/typesizes.h include/bits/dirent.h include/sys/syscall.h \
+ include/bits/sysnum.h include/bits/posix1_lim.h include/bits/local_lim.h \
+ ../kernel/linux/limits.h include/bits/uClibc_local_lim.h include/ftw.h \
+ include/sys/types.h include/time.h include/endian.h \
+ include/bits/endian.h include/byteswap.h include/bits/byteswap.h \
+ include/bits/byteswap-common.h include/sys/select.h \
+ include/bits/select.h include/bits/sigset.h include/bits/time.h \
+ include/sys/sysmacros.h include/bits/pthreadtypes.h include/sys/stat.h \
+ include/bits/stat.h include/limits.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include-fixed/limits.h \
+ include/bits/posix2_lim.h include/bits/xopen_lim.h \
+ include/bits/stdio_lim.h include/search.h include/stdlib.h \
+ include/bits/waitflags.h include/bits/waitstatus.h include/alloca.h \
+ include/string.h include/unistd.h include/bits/posix_opt.h \
+ include/bits/uClibc_posix_opt.h include/bits/environments.h \
+ include/bits/confname.h include/bits/getopt.h include/sys/param.h \
+ ../kernel/linux/param.h ../kernel/asm/param.h \
+ ../kernel/asm-generic/param.h include/assert.h
+
+include/libc-symbols.h:
+
+include/bits/uClibc_arch_features.h:
+
+include/sgidefs.h:
+
+libc/misc/ftw/ftw.c:
+
+include/features.h:
+
+include/bits/uClibc_config.h:
+
+include/sys/cdefs.h:
+
+include/libc-internal.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h:
+
+include/errno.h:
+
+include/bits/errno.h:
+
+../kernel/linux/errno.h:
+
+../kernel/asm/errno.h:
+
+../kernel/asm-generic/errno-base.h:
+
+include/dirent.h:
+
+include/bits/types.h:
+
+include/bits/wordsize.h:
+
+include/bits/typesizes.h:
+
+include/bits/dirent.h:
+
+include/sys/syscall.h:
+
+include/bits/sysnum.h:
+
+include/bits/posix1_lim.h:
+
+include/bits/local_lim.h:
+
+../kernel/linux/limits.h:
+
+include/bits/uClibc_local_lim.h:
+
+include/ftw.h:
+
+include/sys/types.h:
+
+include/time.h:
+
+include/endian.h:
+
+include/bits/endian.h:
+
+include/byteswap.h:
+
+include/bits/byteswap.h:
+
+include/bits/byteswap-common.h:
+
+include/sys/select.h:
+
+include/bits/select.h:
+
+include/bits/sigset.h:
+
+include/bits/time.h:
+
+include/sys/sysmacros.h:
+
+include/bits/pthreadtypes.h:
+
+include/sys/stat.h:
+
+include/bits/stat.h:
+
+include/limits.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include-fixed/limits.h:
+
+include/bits/posix2_lim.h:
+
+include/bits/xopen_lim.h:
+
+include/bits/stdio_lim.h:
+
+include/search.h:
+
+include/stdlib.h:
+
+include/bits/waitflags.h:
+
+include/bits/waitstatus.h:
+
+include/alloca.h:
+
+include/string.h:
+
+include/unistd.h:
+
+include/bits/posix_opt.h:
+
+include/bits/uClibc_posix_opt.h:
+
+include/bits/environments.h:
+
+include/bits/confname.h:
+
+include/bits/getopt.h:
+
+include/sys/param.h:
+
+../kernel/linux/param.h:
+
+../kernel/asm/param.h:
+
+../kernel/asm-generic/param.h:
+
+include/assert.h:
+cmd_libc_misc_ftw_ftw64.os := mips-linux-gcc -c libc/misc/ftw/ftw64.c -o libc/misc/ftw/ftw64.os -Wall -Wstrict-prototypes -Wstrict-aliasing -funsigned-char -fno-builtin -fno-asm -msoft-float -std=gnu99 -mabi=32 -fno-stack-protector -nostdinc -Iinclude -Iinclude -include libc-symbols.h -Ilibc/sysdeps/linux/mips -Ilibc/sysdeps/linux -Ildso/ldso/mips -Ildso/include -I. -mips32r2 -EL -msoft-float -fuse-tls -Os -funit-at-a-time -fmerge-all-constants -fstrict-aliasing -fstrict-overflow -fno-tree-loop-optimize -fno-tree-dominator-opts -fno-strength-reduce -mno-split-addresses -mips32r2 -EL -msoft-float -fuse-tls -Ilibpthread/nptl -Ilibpthread/nptl -Ilibpthread/nptl/sysdeps/unix/sysv/linux/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/pthread -Ilibpthread/nptl/sysdeps/pthread/bits -Ilibpthread/nptl/sysdeps/generic -Ilibc/sysdeps/linux/common -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include-fixed -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include -I.kernel/ -DNDEBUG -D__USE_STDIO_FUTEXES__ -fPIC -MT libc/misc/ftw/ftw64.os -MD -MP -MF libc/misc/ftw/.ftw64.os.dep

@@ -1,0 +1,183 @@
+Title   11B -> 11C SDK UPDATE & official patches
+Date    2017.07.04
+Who     hykim
+Product All products for using SDK 3.4.11B
+Tree    rtlac
+Files	
+	M drivers/net/wireless/rtl8192cd/WlanHAL/RTL88XX/Hal88XXTxDesc.c
+	M drivers/net/wireless/rtl8192cd/WlanHAL/RTL88XX/RTL8822B/RTL8822BE/Hal8822BEGen.c
+	M drivers/net/wireless/rtl8192cd/WlanHAL/Data/8814A/PHY_REG_PG_8814Amp_Type7.txt
+	M include/net/rtl/rtl_types.h
+	M rtkload/Makefile
+	M rtkload/ld.script
+	M drivers/net/wireless/rtl8192cd/8192cd_rx.c
+	M drivers/net/wireless/rtl8192cd/8192cd_hw.c
+
+	-3-
+	M drivers/net/rtl819x/rtl8309m/rtk_api.c
+
+	-4-
+	M drivers/net/wireless/rtl8192cd/8192cd_hw.c
+	M drivers/net/wireless/rtl8192cd/8192cd_ioctl.c
+	M rivers/net/wireless/rtl8192cd/phydm/rtl8197f/halhwimg8197f_bb.c
+
+	-5-
+	M configs/config.97f.8812br.92er.8367r
+	M configs/config.96d.8194ar
+
+Contents
+	1. SDK 3.4.11B -> 3.4.11C Upgrade. CVS Rtag = RTL3411B_FINAL(SDK-v3.4.11C-patch_170627)
+	2. 20170622_sdk3.4.11C_8822_IQ_Gen
+	3. 8309M PORT DOWN Status EFM PATCH
+	4. 20161102_97F_8812BR_iphone6s_error_csi_1ss_applyVmatrix_and_rxhang_when_txbf_off
+	5. Configs update
+---------------------------------------------------------------------
+Title   Storm control remove patch
+Date    2017.07.11
+Who     hykim
+Product All products for using SDK 3.4.11C
+Tree    rtlac
+Files	
+	M drivers/net/rtl819x/AsicDriver/rtl865x_asicCom.h
+Contents
+	Storm control directive remove (EN_STROM_CTRL_BEFORE_SYS_SETTLED)
+---------------------------------------------------------------------
+Title   V508 (97fs+8309M) config update
+Date    2017.07.24
+Who     hykim
+Product V508
+Tree    rtlac
+Files	
+	configs/config.97fs.8309m
+Contents
+	config update
+---------------------------------------------------------------------
+Title   20170720_3411c_mu_patch
+Date    2017.07.24
+Who     hykim
+Product All products for using SDK 3.4.11C
+Tree    rtlac
+Files
+	M drivers/net/rtl819x/rtl_nic.c
+	M drivers/net/rtl819x/rtl865xc_swNic.h
+	M 8192cd.h
+	M 8192cd_cfg.h
+	M 8192cd_headers.h
+	M 8192cd_hw.c
+	M 8192cd_ioctl.c
+	M 8192cd_proc.c
+	M 8192cd_rx.c
+	M 8192cd_sme.c
+	M 8192cd_tx.c
+	M 8192cd_util.c
+	M 8812_vht_gen.c
+	M Beamforming.c
+	M Beamforming.h
+	M EdcaTurboCheck.c
+	M Makefile
+	M WlanHAL/HalMac88XX/halmac_type.h
+	M WlanHAL/HalMac88XX/halmac_88xx/halmac_88xx_cfg.h
+	M WlanHAL/HalMac88XX/halmac_88xx/halmac_api_88xx.c
+	M WlanHAL/Data/8814A/PHY_REG_PG_8814Amp_Type7.txt
+	M WlanHAL/Data/8822B/rtl8822Bfw.bin
+	M WlanHAL/RTL88XX/RTL8822B/RTL8822BE/Hal8822BEDef.h
+	M WlanHAL/RTL88XX/RTL8822B/RTL8822BE/Hal8822BEGen.c
+	M WlanHAL/RTL88XX/Hal88XXFirmware.c
+	M WlanHAL/RTL88XX/Hal88XXTxDesc.c
+	M phydm/phydm_dig.c
+	M phydm/phydm_hwconfig.c
+	M phydm/phydm_rainfo.c
+	M phydm/phydm_rainfo.h
+	M phydm/rtl8197f/halhwimg8197f_bb.c
+	A 8192cd_11v.c
+	A 8192cd_11v.h
+	A 8192cd_smart_roaming.c
+	A wapiCrypto.c
+	A wapiCrypto.h
+	A wapiRandom.c
+	A wapi_wai.c
+	A wapi_wai.h
+	A WlanHAL/Data/8197F/PHY_REG_PG_8197Fmp_Type6.txt
+	A WlanHAL/Data/8197F/TXPWR_LMT_8197Fmp_Type6.txt
+	A WlanHAL/Data/8822B/PHY_REG_PG_8822Bmp_Type10.txt
+	A WlanHAL/Data/8822B/PHY_REG_PG_8822Bmp_Type11.txt
+	A WlanHAL/Data/8822B/PHY_REG_PG_8822Bmp_Type13.txt
+	A WlanHAL/Data/8822B/TXPWR_LMT_8822Bmp_Type10.txt
+	A WlanHAL/Data/8822B/TXPWR_LMT_8822Bmp_Type11.txt
+	A WlanHAL/Data/8822B/TXPWR_LMT_8822Bmp_Type13.txt
+Contents
+	20170720_3411c_mu_patch
+---------------------------------------------------------------------
+Title   Config file update
+Date    2017.07.27
+Who     hykim
+Product V508
+Tree    rtlac
+Files
+        R configs/config.97fs.8309m
+	R configs/config.97f.8812br.8211f.extender
+	R configs/config.97f.8812br.8211f
+	R configs/config.97f.8812br.92er.8367r
+	R configs/config.96d.8194ar
+	
+	A configs/config.8197f.8309m
+	A configs/config.8197f.8197f.8812br.8211f.extender
+	A configs/config.8197f.8197f.8812br.8211f.ringap
+	A configs/config.8196d.8194ar
+	A configs/config.8197f.8197f.8812br.8367r
+Contents
+        config update
+---------------------------------------------------------------------
+Title   Extender GIGA support update
+Date    2017.07.28
+Who     hykim
+Product All products for using SDK 3.4.11C
+Tree    rtlac
+Files
+	M drivers/char/Makefile
+	M drivers/net/rtl819x/AsicDriver/rtl865x_asicL2.c
+	M rtkload/Makefile
+
+	A drivers/char/rtl_gpio_extender_giga.c
+Contents
+        config update
+---------------------------------------------------------------------
+Title   patch_for_96d_8194_issues
+Date    2017.08.08
+Who     hykim
+Product All products for using SDK 3.4.11C
+Tree    rtlac
+Files
+	M drivers/net/wireless/rtl8192cd/8192cd_host.c
+
+Contents
+        patch_for_96d_8194_issues
+---------------------------------------------------------------------
+Title   Wireless config update
+Date    2017.08.10
+Who     hykim
+Product RING-GIGA EXTENDER-GIGA
+Tree    rtlac
+Files
+	M configs/config.8197f.8197f.8812br.8211f.extender
+	M configs/config.8197f.8197f.8812br.8211f.ringap
+
+Contents
+        Wireless config update
+---------------------------------------------------------------------
+Title   RING-GIGA Support update
+Date    2017.08.11
+Who     hykim
+Product RING-GIGA
+Tree    rtlac
+Files
+	M boards/rtl8197F/bsp/gpio.c
+	M linux-3.10/arch/mips/Kconfig
+	M linux-3.10/arch/mips-ori/Kconfig
+	M linux-3.10/drivers/char/Makefile
+	M linux-3.10/rtkload/Makefile
+
+	A rtl_gpio_ring_giga.c
+Contents
+        RING-GIGA Support update
+---------------------------------------------------------------------

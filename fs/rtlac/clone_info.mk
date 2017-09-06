@@ -1,0 +1,1 @@
+clones/ringg/clone_info.mk

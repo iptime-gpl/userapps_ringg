@@ -1,0 +1,2 @@
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/config/uclibc/./extra/locale/charmaps/ASCII.pairs
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/config/uclibc/./extra/locale/charmaps/ISO-8859-1.pairs

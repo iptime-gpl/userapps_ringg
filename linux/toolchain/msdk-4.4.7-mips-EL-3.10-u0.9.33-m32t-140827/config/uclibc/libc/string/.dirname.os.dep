@@ -1,0 +1,24 @@
+libc/string/dirname.os: libc/string/dirname.c include/libc-symbols.h \
+ include/bits/uClibc_arch_features.h include/sgidefs.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h \
+ include/libgen.h include/features.h include/bits/uClibc_config.h \
+ include/sys/cdefs.h include/libc-internal.h
+
+include/libc-symbols.h:
+
+include/bits/uClibc_arch_features.h:
+
+include/sgidefs.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h:
+
+include/libgen.h:
+
+include/features.h:
+
+include/bits/uClibc_config.h:
+
+include/sys/cdefs.h:
+
+include/libc-internal.h:
+cmd_libc_string_dirname.os := mips-linux-gcc -c libc/string/dirname.c -o libc/string/dirname.os -Wall -Wstrict-prototypes -Wstrict-aliasing -funsigned-char -fno-builtin -fno-asm -msoft-float -std=gnu99 -mabi=32 -fno-stack-protector -nostdinc -Iinclude -Iinclude -include libc-symbols.h -Ilibc/sysdeps/linux/mips -Ilibc/sysdeps/linux -Ildso/ldso/mips -Ildso/include -I. -mips32r2 -EL -msoft-float -fuse-tls -Os -funit-at-a-time -fmerge-all-constants -fstrict-aliasing -fstrict-overflow -fno-tree-loop-optimize -fno-tree-dominator-opts -fno-strength-reduce -mno-split-addresses -mips32r2 -EL -msoft-float -fuse-tls -Ilibpthread/nptl -Ilibpthread/nptl -Ilibpthread/nptl/sysdeps/unix/sysv/linux/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/pthread -Ilibpthread/nptl/sysdeps/pthread/bits -Ilibpthread/nptl/sysdeps/generic -Ilibc/sysdeps/linux/common -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include-fixed -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include -I.kernel/ -DNDEBUG -D__USE_STDIO_FUTEXES__ -fPIC -MT libc/string/dirname.os -MD -MP -MF libc/string/.dirname.os.dep

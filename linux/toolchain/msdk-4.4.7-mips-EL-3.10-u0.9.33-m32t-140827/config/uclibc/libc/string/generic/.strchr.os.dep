@@ -1,0 +1,83 @@
+libc/string/generic/strchr.os: libc/string/generic/strchr.c \
+ include/libc-symbols.h include/bits/uClibc_arch_features.h \
+ include/sgidefs.h include/string.h include/features.h \
+ include/bits/uClibc_config.h include/sys/cdefs.h include/libc-internal.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h \
+ include/stdlib.h include/bits/waitflags.h include/bits/waitstatus.h \
+ include/endian.h include/bits/endian.h include/stdint.h \
+ include/bits/wchar.h include/bits/wordsize.h include/byteswap.h \
+ include/bits/byteswap.h include/bits/byteswap-common.h \
+ include/sys/types.h include/bits/types.h include/bits/kernel_types.h \
+ include/bits/typesizes.h include/time.h include/sys/select.h \
+ include/bits/select.h include/bits/sigset.h include/bits/time.h \
+ include/sys/sysmacros.h include/bits/pthreadtypes.h include/alloca.h \
+ include/bits/stackinfo.h libc/string/generic/memcopy.h
+
+include/libc-symbols.h:
+
+include/bits/uClibc_arch_features.h:
+
+include/sgidefs.h:
+
+include/string.h:
+
+include/features.h:
+
+include/bits/uClibc_config.h:
+
+include/sys/cdefs.h:
+
+include/libc-internal.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h:
+
+include/stdlib.h:
+
+include/bits/waitflags.h:
+
+include/bits/waitstatus.h:
+
+include/endian.h:
+
+include/bits/endian.h:
+
+include/stdint.h:
+
+include/bits/wchar.h:
+
+include/bits/wordsize.h:
+
+include/byteswap.h:
+
+include/bits/byteswap.h:
+
+include/bits/byteswap-common.h:
+
+include/sys/types.h:
+
+include/bits/types.h:
+
+include/bits/kernel_types.h:
+
+include/bits/typesizes.h:
+
+include/time.h:
+
+include/sys/select.h:
+
+include/bits/select.h:
+
+include/bits/sigset.h:
+
+include/bits/time.h:
+
+include/sys/sysmacros.h:
+
+include/bits/pthreadtypes.h:
+
+include/alloca.h:
+
+include/bits/stackinfo.h:
+
+libc/string/generic/memcopy.h:
+cmd_libc_string_generic_strchr.os := mips-linux-gcc -c libc/string/generic/strchr.c -o libc/string/generic/strchr.os -Wall -Wstrict-prototypes -Wstrict-aliasing -funsigned-char -fno-builtin -fno-asm -msoft-float -std=gnu99 -mabi=32 -fno-stack-protector -nostdinc -Iinclude -Iinclude -include libc-symbols.h -Ilibc/sysdeps/linux/mips -Ilibc/sysdeps/linux -Ildso/ldso/mips -Ildso/include -I. -mips32r2 -EL -msoft-float -fuse-tls -Os -funit-at-a-time -fmerge-all-constants -fstrict-aliasing -fstrict-overflow -fno-tree-loop-optimize -fno-tree-dominator-opts -fno-strength-reduce -mno-split-addresses -mips32r2 -EL -msoft-float -fuse-tls -Ilibpthread/nptl -Ilibpthread/nptl -Ilibpthread/nptl/sysdeps/unix/sysv/linux/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/pthread -Ilibpthread/nptl/sysdeps/pthread/bits -Ilibpthread/nptl/sysdeps/generic -Ilibc/sysdeps/linux/common -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include-fixed -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include -I.kernel/ -DNDEBUG -D__USE_STDIO_FUTEXES__ -fPIC -MT libc/string/generic/strchr.os -MD -MP -MF libc/string/generic/.strchr.os.dep

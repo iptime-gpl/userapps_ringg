@@ -1,0 +1,159 @@
+libc/stdlib/llabs.o: libc/stdlib/llabs.c include/libc-symbols.h \
+ include/bits/uClibc_arch_features.h include/sgidefs.h \
+ libc/stdlib/stdlib.c include/limits.h include/features.h \
+ include/bits/uClibc_config.h include/sys/cdefs.h include/libc-internal.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include-fixed/limits.h \
+ include/bits/posix1_lim.h include/bits/local_lim.h \
+ ../kernel/linux/limits.h include/bits/uClibc_local_lim.h \
+ include/bits/posix2_lim.h include/bits/xopen_lim.h \
+ include/bits/stdio_lim.h include/stdint.h include/bits/wchar.h \
+ include/bits/wordsize.h include/inttypes.h include/ctype.h \
+ include/bits/types.h include/bits/kernel_types.h \
+ include/bits/typesizes.h include/bits/uClibc_touplow.h include/errno.h \
+ include/bits/errno.h ../kernel/linux/errno.h ../kernel/asm/errno.h \
+ ../kernel/asm-generic/errno-base.h include/assert.h include/unistd.h \
+ include/bits/posix_opt.h include/bits/uClibc_posix_opt.h \
+ include/bits/environments.h include/bits/confname.h \
+ include/bits/getopt.h include/stdlib.h include/bits/waitflags.h \
+ include/bits/waitstatus.h include/endian.h include/bits/endian.h \
+ include/byteswap.h include/bits/byteswap.h \
+ include/bits/byteswap-common.h include/sys/types.h include/time.h \
+ include/sys/select.h include/bits/select.h include/bits/sigset.h \
+ include/bits/time.h include/sys/sysmacros.h include/bits/pthreadtypes.h \
+ include/alloca.h include/bits/stackinfo.h include/locale.h \
+ include/bits/uClibc_locale.h include/bits/uClibc_locale_data.h \
+ include/wchar.h include/stdio.h \
+ /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stdarg.h \
+ include/wctype.h include/bits/uClibc_uwchar.h
+
+include/libc-symbols.h:
+
+include/bits/uClibc_arch_features.h:
+
+include/sgidefs.h:
+
+libc/stdlib/stdlib.c:
+
+include/limits.h:
+
+include/features.h:
+
+include/bits/uClibc_config.h:
+
+include/sys/cdefs.h:
+
+include/libc-internal.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stddef.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include-fixed/limits.h:
+
+include/bits/posix1_lim.h:
+
+include/bits/local_lim.h:
+
+../kernel/linux/limits.h:
+
+include/bits/uClibc_local_lim.h:
+
+include/bits/posix2_lim.h:
+
+include/bits/xopen_lim.h:
+
+include/bits/stdio_lim.h:
+
+include/stdint.h:
+
+include/bits/wchar.h:
+
+include/bits/wordsize.h:
+
+include/inttypes.h:
+
+include/ctype.h:
+
+include/bits/types.h:
+
+include/bits/kernel_types.h:
+
+include/bits/typesizes.h:
+
+include/bits/uClibc_touplow.h:
+
+include/errno.h:
+
+include/bits/errno.h:
+
+../kernel/linux/errno.h:
+
+../kernel/asm/errno.h:
+
+../kernel/asm-generic/errno-base.h:
+
+include/assert.h:
+
+include/unistd.h:
+
+include/bits/posix_opt.h:
+
+include/bits/uClibc_posix_opt.h:
+
+include/bits/environments.h:
+
+include/bits/confname.h:
+
+include/bits/getopt.h:
+
+include/stdlib.h:
+
+include/bits/waitflags.h:
+
+include/bits/waitstatus.h:
+
+include/endian.h:
+
+include/bits/endian.h:
+
+include/byteswap.h:
+
+include/bits/byteswap.h:
+
+include/bits/byteswap-common.h:
+
+include/sys/types.h:
+
+include/time.h:
+
+include/sys/select.h:
+
+include/bits/select.h:
+
+include/bits/sigset.h:
+
+include/bits/time.h:
+
+include/sys/sysmacros.h:
+
+include/bits/pthreadtypes.h:
+
+include/alloca.h:
+
+include/bits/stackinfo.h:
+
+include/locale.h:
+
+include/bits/uClibc_locale.h:
+
+include/bits/uClibc_locale_data.h:
+
+include/wchar.h:
+
+include/stdio.h:
+
+/home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/../lib/gcc/mips-linux-uclibc/4.4.7/include/stdarg.h:
+
+include/wctype.h:
+
+include/bits/uClibc_uwchar.h:
+cmd_libc_stdlib_llabs.o := mips-linux-gcc -c libc/stdlib/llabs.c -o libc/stdlib/llabs.o -Wall -Wstrict-prototypes -Wstrict-aliasing -funsigned-char -fno-builtin -fno-asm -msoft-float -std=gnu99 -mabi=32 -fno-stack-protector -nostdinc -Iinclude -Iinclude -include libc-symbols.h -Ilibc/sysdeps/linux/mips -Ilibc/sysdeps/linux -Ildso/ldso/mips -Ildso/include -I. -mips32r2 -EL -msoft-float -fuse-tls -Os -funit-at-a-time -fmerge-all-constants -fstrict-aliasing -fstrict-overflow -fno-tree-loop-optimize -fno-tree-dominator-opts -fno-strength-reduce -mno-split-addresses -mips32r2 -EL -msoft-float -fuse-tls -Ilibpthread/nptl -Ilibpthread/nptl -Ilibpthread/nptl/sysdeps/unix/sysv/linux/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/mips -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/unix/sysv/linux -Ilibpthread/nptl/sysdeps/pthread -Ilibpthread/nptl/sysdeps/pthread/bits -Ilibpthread/nptl/sysdeps/generic -Ilibc/sysdeps/linux/common -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include-fixed -isystem /home/hyrtlac/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/.lib/gcc/mips-linux-uclibc/4.4.7/include -I.kernel/ -DNDEBUG -D__USE_STDIO_FUTEXES__ -MT libc/stdlib/llabs.o -MD -MP -MF libc/stdlib/.llabs.o.dep

@@ -1,0 +1,9 @@
+M drivers/net/wireless/rtl8192cd/8192cd_host.c
+M drivers/net/wireless/rtl8192cd/8192cd_proc.c
+M drivers/net/wireless/rtl8192cd/8192cd_rx.c
+M drivers/net/wireless/rtl8192cd/8192cd_sme.c
+M drivers/net/wireless/rtl8192cd/8192cd_tx.c
+M drivers/net/wireless/rtl8192cd/8192cd_util.c
+M drivers/net/wireless/rtl8192cd/WlanHAL/RTL88XX/Hal88XXFirmware.c
+M efmpatches/patch.20170724
+M rtkload/ld.script
