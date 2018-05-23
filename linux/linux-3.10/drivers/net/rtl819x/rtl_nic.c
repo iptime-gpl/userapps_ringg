@@ -2,9 +2,9 @@
  * Copyright c                Realtek Semiconductor Corporation, 2003
  * All rights reserved.
  *
- * $Header: /usr/kcvsrep/RTL3.4/rtl819x_3.4.11b/rtl819x/linux-3.10/drivers/net/rtl819x/rtl_nic.c,v 1.6 2017/07/24 07:18:33 rtlac Exp $
+ * $Header: /usr/kcvsrep/RTL3.4/rtl819x_3.4.11b/rtl819x/linux-3.10/drivers/net/rtl819x/rtl_nic.c,v 1.7 2017/09/01 06:32:21 hyrtlac Exp $
  *
- * $Author: rtlac $
+ * $Author: hyrtlac $
  *
  * Abstract: Pure L2 NIC driver, without RTL865X's advanced L3/4 features.
  *
@@ -185,8 +185,13 @@ extern int rtl_initMcastImprove(void);
 uint16 sw_pvid[RTL8651_PORT_NUMBER];
 #endif
 
-#define TEST_PACKETS(mac) ((mac[0]==0x01 && mac[1]==0x00 && mac[2]==0x5e && mac[3]==0x01 &&mac[4]==0x02 &&mac[5]==0x03)||(mac[0]==0x33 && mac[1]==0x33 && mac[2]==0x00 && mac[3]==0x00 &&mac[4]==0x00 &&mac[5]==0x01))
 __DRAM_FWD unsigned int _debug_flag;
+
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+int rtl_8309_vlan_en = 0;
+unsigned int rtk_get_vlan_portmask(uint16 vid);
+int rtl_8309_vlan_tx(struct sk_buff *skb, rtl_nicTx_info *txInfo);
+#endif
 
 #if defined(CONFIG_RTL_ETH_802DOT1X_SUPPORT)
 #include <net/rtl/rtl_dot1x.h>
@@ -617,7 +622,6 @@ MODULE_PARM_DESC (multicast_filter_limit, "maximum number of filtered multicast 
 #define CONFIG_RTL_REPORT_LINK_STATUS
 
 #define CONFIG_RTL_PHY_POWER_CTRL
-
 
 
 #if defined(CONFIG_RTL_8197F) &&  defined(CONFIG_FINETUNE_RUNOUT_IRQ)
@@ -4039,6 +4043,12 @@ int  rtl_MulticastRxCheck(struct sk_buff *skb,rtl_nicRx_info *info,int mCastFlag
 
 	int vid=info->vid;
 	int pid=info->pid;
+
+	#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+        if (rtl_8309_vlan_en){
+                return 0;
+        }
+        #endif
 	
 #if defined(CONFIG_RTL_8198C) || defined(CONFIG_RTL_8197F)
 	if ((info->vid==0) && (rtl819x_getSwEthPvid(pid, &(info->vid))==SUCCESS))
@@ -6250,6 +6260,13 @@ static inline void rtl_processRxFrame(rtl_nicRx_info *info)
 		}
 		#endif
 		vid = ntohs(*(uint16*)(data+(ETH_ALEN<<1)+2)) & 0x0fff;
+		#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+                if (0&&net_ratelimit())
+                        printk("%s %d vid=%u name=%s pid=%u \n", __func__, __LINE__, vid, skb->dev->name, pid);
+                if (rtl_8309_vlan_en){
+                        goto reserve_vlan_tag;
+                }
+                #endif
 		#if 0
 		#if	defined(CONFIG_RTL_QOS_8021P_SUPPORT)
 		//skb->srcVlanPriority = (vid>>13)&0x7;
@@ -6314,7 +6331,7 @@ Reserve_tag:
 #endif
 	}
 	/*	vlan process end (vlan tag has already stripped)	*/
-#if defined(CONFIG_RTL_VLAN_8021Q) || defined(CONFIG_SWCONFIG)
+#if defined(CONFIG_RTL_VLAN_8021Q) || defined(CONFIG_SWCONFIG) || defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
         reserve_vlan_tag:
 #endif
 
@@ -9185,6 +9202,7 @@ static int32 proc_write_debug_reg( struct file *filp, const char *buff,unsigned 
 
 static int32 proc_write_iptv_port( struct file *filp, const char *buff,unsigned long len, void *data )
 {
+#ifndef CONFIG_RTL_8309M_VLAN_SUPPORT
         char            tmpbuf[256];
         struct dev_priv *cp1, *cp2;
 
@@ -9249,6 +9267,7 @@ static int32 proc_write_iptv_port( struct file *filp, const char *buff,unsigned 
         for (port=0; port<8; port++)
                 rtk_qos_schedulingQueue_set(port, &Qweights);
         }
+#endif
 #endif
 
         return len;
@@ -11240,6 +11259,19 @@ static int re865x_start_xmit(struct sk_buff *skb, struct net_device *dev)
 		}
 	}
 	#endif	
+
+	#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+        retval = rtl_8309_vlan_tx(tx_skb, &nicTx);
+        if(FAILED == retval){
+                dev_kfree_skb_any(tx_skb);
+                #if defined(CONFIG_SMP)
+                SMP_UNLOCK_ETH_XMIT(flags);
+                #endif
+
+                return 0;
+        }
+        #endif
+
 
 #if defined(CONFIG_RTL_QOS_PATCH) || defined(CONFIG_RTK_VOIP_QOS)
 	if(((struct sk_buff *)tx_skb)->srcPhyPort == QOS_PATCH_RX_FROM_LOCAL){
@@ -27390,3 +27422,58 @@ int rtl_get_phy_port_by_dev(struct net_device *dev)
 }
 #endif
 
+
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+
+/*
+ *  *  a wan port in 97f port4, another wan port in 8309
+ *   *  97F connect to 8309 via port0, use vlan tag
+ *   */
+int rtl_8309_vlan_tx(struct sk_buff *skb, rtl_nicTx_info *txInfo)
+{
+
+        uint16 vid = 0, port = 0, pvid = 0;
+        struct dev_priv *cp = NULL;
+        unsigned int mbrmsk = 0;
+        rtl865x_vlan_entry_t *vlan_entry = NULL;
+
+        if (!rtl_8309_vlan_en)
+                return SUCCESS;
+
+        if (!skb || !txInfo)
+                return FAILED;
+
+        cp = NETDRV_PRIV(skb->dev);
+        if(*((unsigned short *)(skb->data+(ETH_ALEN<<1)))== __constant_htons(ETH_P_8021Q))
+        {
+                vid = ntohs(*(uint16*)(skb->data+(ETH_ALEN<<1)+2)) & 0x0fff;
+        }
+        if (!vid){
+                if (rtl_isWanDev(cp)==TRUE){
+                        port = 4;
+                }
+                else{
+                        port = 0;
+                }
+                rtl819x_getSwEthPvid(port, &pvid);
+                vid = pvid;
+        }
+
+
+        vlan_entry=_rtl8651_getVlanTableEntry(vid);
+        if (vlan_entry){
+                mbrmsk = (vlan_entry->memberPortMask & 0x1f );
+        }
+
+        txInfo->vid = vid;
+
+        if (rtl_isWanDev(cp)!=TRUE){
+                txInfo->portlist = 1<<0;
+        }
+        else{
+
+        }
+
+        return SUCCESS;
+}
+#endif

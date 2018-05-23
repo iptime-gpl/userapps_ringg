@@ -527,6 +527,15 @@ static void br_flood(struct net_bridge *br, struct sk_buff *skb,
 			}
 #endif
 
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+                                extern int rtl_8309_vlan_en;
+                                 if (rtl_8309_vlan_en &&
+                                        ((!strncmp(skb->dev->name, "eth", strlen("eth")))
+                                         &&(!strncmp(p->dev->name, "eth", strlen("eth"))))){
+                                         continue;
+                                 }
+#endif
+
 			if (prev != NULL) {
 				struct sk_buff *skb2;
 
@@ -574,6 +583,16 @@ static void br_flood(struct net_bridge *br, struct sk_buff *skb,
 						continue;
 				}
 			}
+#endif
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+                if (is_broadcast_ether_addr(dest) || is_unicast_ether_addr(dest)){
+                        extern int rtl_8309_vlan_en;
+                         if (rtl_8309_vlan_en &&
+                                 ((!strncmp(skb->dev->name, "eth", strlen("eth")))
+                                  &&(!strncmp(p->dev->name, "eth", strlen("eth"))))){
+                                 continue;
+                         }
+                 }
 #endif
 
 		prev = maybe_deliver(prev, p, skb, __packet_hook);

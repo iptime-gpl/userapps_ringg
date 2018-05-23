@@ -9,8 +9,8 @@
 * ANY USE OF THE SOFTWARE OTEHR THAN AS AUTHORIZED UNDER 
 * THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
 * 
-* $Revision: 1.3 $
-* $Date: 2017/07/04 04:18:52 $
+* $Revision: 1.4 $
+* $Date: 2017/09/01 06:33:29 $
 *
 * Purpose : realtek common API
 *
@@ -6419,124 +6419,6 @@ int rtl_8309_remove_acl_for_dns(void)
 }
 #endif
 
-#ifdef CONFIG_EFM_PATCH_XXX
-#define BIT(nr)			(1UL << (nr))
-#define WAN_VID			8
-#define LAN_VID			9
-#if defined(CONFIG_RTL_EXCHANGE_PORTMASK)
-#define	RTL8367R_WAN			0		// WAN port is set to 8367R port 0
-#else
-#define	RTL8309M_WAN			-1		// WAN port is not in 8309M
-#endif
-
-#define	RTL_WANPORT_MASK		(0x1 << RTL8309M_WAN)
-#define	RTL_LANPORT_MASK		(0x1ff & (~RTL_WANPORT_MASK))
-
-#define GATEWAY_MODE				0
-#define BRIDGE_MODE				1
-
-#define PASSTHRU_VLAN_ID 100
-
-static  int rtl8197d_op_mode = 0;
-
-struct _vlan_conf {
-	rtk_vlan_t 		vid;
-	uint32		mbrmsk;
-	uint32		untagmsk;
-	rtk_fid_t			fid;
-	rtk_pri_t 			priority;
-};
-
-#define RTL8309M_VIDMAX                     0xFFF
-#define _VID_END	(RTL8309M_VIDMAX+1)
-#define _8309M_RGMII2		8
-#define BIT(nr)			(1UL << (nr))
-
-// please assign different fid for them
-struct _vlan_conf vc_gateway[] = {
-#ifdef ENABLE_8367RB_RGMII2
-	{ 	LAN_VID,	 	(RTL_LANPORT_MASK | BIT(_8367RB_RGMII2)),   	(RTL_LANPORT_MASK | BIT(_8367RB_RGMII2)),	0, 0 },
-#else
-#if defined(CONFIG_EFM_PATCH) && defined(CONFIG_RTL_8309M_SUPPORT)	/*EFM_DEBUG*/
-	{ 	LAN_VID,	 	(RTL_LANPORT_MASK | BIT(_8309M_RGMII2)),   	RTL_LANPORT_MASK,	0, 0 },
-#else
-	{ 	LAN_VID,	 	RTL_LANPORT_MASK,   	RTL_LANPORT_MASK,	0, 0 },
-#endif
-#endif	
-#if defined(CONFIG_EFM_PATCH) && defined(CONFIG_RTL_8309M_SUPPORT)	/*EFM_DEBUG*/
-	{	WAN_VID,	0,   0,	1, 0},
-#else
-	{	WAN_VID,	RTL_WANPORT_MASK,   RTL_WANPORT_MASK,	1, 0},
-#endif
-	{	PASSTHRU_VLAN_ID,	(RTL_LANPORT_MASK|RTL_WANPORT_MASK),   (RTL_LANPORT_MASK|RTL_WANPORT_MASK), 0, 0},//for IPv6	
-	{	_VID_END,	0, 0, 0, 0}
-};
-
-struct _vlan_conf vc_bridge_svl[] = {
-	{ 	LAN_VID,	 	(RTL_LANPORT_MASK | RTL_WANPORT_MASK),   	(RTL_LANPORT_MASK | RTL_WANPORT_MASK),	2, 0 },
-	{	_VID_END,	0, 0, 0, 0}
-};
-
-
-int _vlan_setting(struct _vlan_conf vc[])
-{
-	int i, j, retval;
-	rtk_portmask_t mbrmsk, untagmsk;
-
-	for(i=0; vc[i].vid <= RTL8309M_VIDMAX; i++)
-	{
-		mbrmsk.bits[0] = (vc[i].mbrmsk);
-		untagmsk.bits[0] = (vc[i].untagmsk);
-		retval = rtk_vlan_set(vc[i].vid, mbrmsk, untagmsk, vc[i].fid);
-
-		if(vc[i].vid == PASSTHRU_VLAN_ID)		
-			continue;
-		
-		/* set pvid*/	
-		for(j=0;j<9;j++)
-		{
-			if  ((1<<j)& (vc[i].mbrmsk))
-				rtk_vlan_portPvid_set(j, vc[i].vid, vc[i].priority);			
-		}     	  
-	}	
-	return 0;
-}
-
-int RTL83XX_vlan_init(void)
-{
-	rtk_vlan_init();
-	_vlan_setting(vc_gateway);
-	rtl8197d_op_mode = GATEWAY_MODE;
-	return 0;
-}
-
-int RTL83XX_vlan_reinit(int mode)
-{
-#if defined (CONFIG_RTL_IVL_SUPPORT)
-	// when CONFIG_RTL_IVL_SUPPORT is defined, keep vc_gateway setting for gateway and bridge mode both
-	
-	rtk_l2_flushType_set(FLUSH_TYPE_BY_PORT, WAN_VID, r8367_cpu_port);				
-#else
-
-	if (mode==rtl8197d_op_mode) // no need tio do the re-initialization
-		return 0;
-
-	rtk_vlan_init();
-
-	if (mode==GATEWAY_MODE)
-		_vlan_setting(vc_gateway);
-	
-	else
-		_vlan_setting(vc_bridge_svl);
-		
-#endif
-
-	rtl8197d_op_mode = mode;	
-	return 0;
-}
-
-#endif
-
 #if 0
 
 #define BIT(nr)			(1UL << (nr))
@@ -8260,6 +8142,35 @@ void rtl8367_setFlowControl(int qosEnable)
 #endif
 #endif
 
+#endif
+
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+void get_all_ucast_l2(void)
+{
+        #if 0
+        int i = 0, ret = 0;
+        rtl8309n_l2_ucastEntry_t p;
+
+        printk("\n8309m l2: \n");
+        for (i=0; i<=2047; i++)
+        {
+
+                ret = rtl8309n_l2_ucastEntry_get(i, &p);
+                if ((ret == SUCCESS))
+                {
+                        if (p.isStatic || p.age){
+                                printk("[%d] mac: %02x:%02x:%02x:%02x:%02x:%02x, port: 0x%x, age: %u, fid: %u sa_block=%u da_block=%u auth=%u isStatic=%u \n", i,
+                                p.mac.octet[0],p.mac.octet[1],p.mac.octet[2],p.mac.octet[3],p.mac.octet[4],p.mac.octet[5],
+                                p.port, p.age, p.fid, p.sa_block, p.da_block, p.auth, p.isStatic);
+                        }
+                }
+        }
+
+        printk("\n\n");
+        #endif
+
+        return;
+}
 #endif
 
 #ifdef CONFIG_EFM_PATCH

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-ToolChainPrefix="mips-openwrt-linux-uclibc-"
-
 CC=${ToolChainPrefix}gcc
 CXX=${ToolChainPrefix}c++
 CPP=${ToolChainPrefix}cpp
@@ -13,5 +11,5 @@ CFLAGS="-fomit-frame-pointer -pipe -Os"
 
 env CC=$CC \
 env CFLAGS="$CFLAGS" \
-./configure  --host=mips-linux --target=mips-linux --enable-shared --enable-static
+./configure  --host=${ARCH}-linux --target=${ARCH}-linux --enable-shared --enable-static
 

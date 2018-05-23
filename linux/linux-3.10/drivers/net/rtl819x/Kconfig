@@ -707,17 +707,23 @@ choice
 		bool "Enable RTL8367SB support"
 		default n
 		depends on RTL_8197F
+
+	config RTL_8309M_SUPPORT
+		bool "Enable RTL8309M support"
+		default n
+		depends on RTL_8197F
+
+	config RTL_8309M_VLAN_SUPPORT
+                bool "Enable RTL8309M vlan support"
+                default n
+                depends on RTL_8197F && RTL_8309M_SUPPORT
+
 endchoice
 
 config RTL_83XX_SUPPORT
 	bool 
 	default y if (RTL_8366SC_SUPPORT || RTL_8363NB_SUPPORT || RTL_8365MB_SUPPORT || RTL_8364NB_SUPPORT || RTL_8367SB_SUPPORT)
 	depends on RTL_8197F	
-
-config RTL_8309M_SUPPORT
-        bool "Enable RTL8309M support"
-        default n
-        depends on RTL_8197F
 
 #config RTL_LINK_AGGREGATION
 #	bool "link aggregation support"

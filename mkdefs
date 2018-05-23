@@ -1,5 +1,4 @@
-#CROSS = /toolchain/rsdk-96c/mips-uclibc-
-CROSS = /home/$(shell whoami)/RTL3.4/rtl819x_3.4.11b/rtl819x/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/msdk-linux-
+CROSS=$(USERAPPS_ROOT)/linux/toolchain/msdk-4.4.7-mips-EL-3.10-u0.9.33-m32t-140827/bin/msdk-linux-
 CC = $(CROSS)gcc
 LD = $(CROSS)gcc
 AR = $(CROSS)ar

@@ -606,7 +606,12 @@ int br_handle_frame_finish(struct sk_buff *skb)
 #endif/*CONFIG_BRIDGE_IGMP_SNOOPING*/
 #if defined(CONFIG_RTL_IGMP_SNOOPING)
 #if defined (CONFIG_RT_MULTIPLE_BR_SUPPORT)
+#if defined (CONFIG_RTL_8309M_VLAN_SUPPORT)
+                extern int rtl_8309_vlan_en;
+                if(!rtl_8309_vlan_en &&(MULTICAST_MAC(dest)||IPV6_MULTICAST_MAC(dest)) && strcmp(br->dev->name, RTL_PS_BR0_DEV_NAME)!=0)
+#else
 		if((MULTICAST_MAC(dest)||IPV6_MULTICAST_MAC(dest)) && strcmp(br->dev->name, RTL_PS_BR0_DEV_NAME)!=0)
+#endif
 		{
 			//do not need to clone skb;
 			//fix bug:lan-wan bridge, if igmp pkts from br1 pass up, igmpproxy will deal with this packets and add mbr on eth1. 

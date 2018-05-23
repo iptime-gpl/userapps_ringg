@@ -18,6 +18,7 @@ deps_drivers/net/rtl819x/rtl865x_proc_debug.o := \
     $(wildcard include/config/rtl/8367r/support.h) \
     $(wildcard include/config/rtl/83xx/support.h) \
     $(wildcard include/config/rtl/8309m/support.h) \
+    $(wildcard include/config/rtl/8309m/vlan/support.h) \
     $(wildcard include/config/rtl/proc/debug.h) \
     $(wildcard include/config/rtl/debug/tool.h) \
     $(wildcard include/config/force/10m/100m/full/refine.h) \

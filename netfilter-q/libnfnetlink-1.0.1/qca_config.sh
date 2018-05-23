@@ -1,8 +1,6 @@
 #!/bin/sh
 
-ToolChainPrefix="mips-openwrt-linux-uclibc-"
-
-ConfigOpt="--host=mips-linux --target=mips-linux"
+ConfigOpt="--host=${ARCH}-linux --target=${ARCH}-linux"
 
 CC=${ToolChainPrefix}gcc
 CXX=${ToolChainPrefix}c++
@@ -15,5 +13,5 @@ CFLAGS="-fomit-frame-pointer -pipe -Os"
 
 env CC=$CC \
 env CFLAGS="$CFLAGS" \
-./configure  --host=mips-linux --target=mips-linux
+./configure  --host=${ARCH}-linux --target=${ARCH}-linux
 

@@ -34,6 +34,7 @@ deps_drivers/net/rtl819x/rtl_nic.o := \
     $(wildcard include/config/rtl/hw/mcast/wifi.h) \
     $(wildcard include/config/rtl/8198c.h) \
     $(wildcard include/config/rtl/8197f.h) \
+    $(wildcard include/config/rtl/8309m/vlan/support.h) \
     $(wildcard include/config/rtl/eth/802dot1x/support.h) \
     $(wildcard include/config/rtl/link/aggregation.h) \
     $(wildcard include/config/rtl/dns/trap.h) \

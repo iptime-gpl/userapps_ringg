@@ -107,6 +107,7 @@ extern int rtk_vlan_portPvid_get(uint32 port, uint32 *pPvid, uint32 *pPriority);
 
 #ifdef CONFIG_RTL_8309M_SUPPORT
 #define SWITCH_MAX_PORT_NUM 8
+#define RTL8309N_MAX_VLANINDEX  15
 extern int32 rtk_port_phyStatus_get(uint32 phy, rtk_port_linkStatus_t *pLinkStatus, rtk_port_speed_t *pSpeed, rtk_port_duplex_t *pDuplex);
 extern int32 rtl8309n_mib_enable_set(uint32 enabled);
 extern int32 rtl8309n_mib_start(uint32 port);
@@ -117,6 +118,19 @@ extern int32 rtl8309n_reg_get(uint32 phyad, uint32 regad, uint32 npage, uint32 *
 extern int32 rtl8309n_reg_set(uint32 phyad, uint32 regad, uint32 npage, uint32 value);
 extern int32 rtl8309n_mib_enable_get(uint32 *pEnabled);
 extern void init_8309m(void);
+extern int rtk_vlan_get(uint32 vid, uint32 *pMbrmsk, uint32 *pUntagmsk, uint32 *pFid);
+extern int rtk_vlan_set(uint32 vid, uint32 mbrmsk, uint32 untagmsk, uint32 fid);
+extern int32 rtl8309n_vlan_entry_set(uint32 vlanIndex, uint32 vid, uint32 mbrmsk, uint32 untagmsk, uint32 fid);
+int32 rtl8309n_vlan_entry_get(uint32 vlanIndex, uint32 *pVid, uint32 *pMbrmsk, uint32 *pUntagmsk, uint32 *pFid);
+int32 rtk_vlan_portPvid_get(uint32 port, uint32 *pPvid, uint32 *pPriority);
+int32 rtk_vlan_portPvid_set(uint32 port, uint32 pvid, uint32 priority);
+#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+int rtk_vlan_init(void);
+int32 rtl8309n_vlan_igrPortTagInsertEnable_set(uint32 port, uint32 enabled);
+int32 rtl8309n_vlan_igrPortTagInsert_set(uint32 egPort, uint32 rxPortMsk);
+void get_all_ucast_l2(void);
+#endif
+
 #endif
 
 #if defined(CONFIG_RTL_PROC_DEBUG)||defined(CONFIG_RTL_DEBUG_TOOL)
@@ -590,7 +604,7 @@ static int32 vlan_write( struct file *filp, const char *buff,unsigned long len, 
 				(!memcmp(cmd_addr, "ADD", 3))	)
 			{
 				
-				uint32 vid=0;
+				uint32 vid=0, fid = 0;
 				uint32 portMask=0;
 				uint32 taggedPortMask=0;
 				extern int32 rtl865x_addVlanPortMember2(uint16 vid, uint32 portMask, uint32 untagPortMask);
@@ -617,12 +631,20 @@ static int32 vlan_write( struct file *filp, const char *buff,unsigned long len, 
 				}
 				
 				taggedPortMask= simple_strtol(tokptr, NULL, 16);
-				
+			
+
+				tokptr = strsep(&strptr," ");
+                                if (tokptr==NULL)
+                                {
+                                        goto errout;
+                                }
+                                fid = simple_strtol(tokptr, NULL, 0);
+	
 				rtl865x_addVlan(vid);
 				//rtl865x_addVlanPortMember(vid & 4095,portMask & 0x13F);
 				//rtl865x_setVlanPortTag(vid,taggedPortMask,1);
 				rtl865x_addVlanPortMember2(vid & 4095,portMask, taggedPortMask);
-				rtl865x_setVlanFilterDatabase(vid,0);				
+				rtl865x_setVlanFilterDatabase(vid,fid);				
 			}
 			else if (	(!memcmp(cmd_addr, "del", 3)) || 
 				(!memcmp(cmd_addr, "Del", 3)) ||
@@ -687,6 +709,149 @@ static int32 vlan_write( struct file *filp, const char *buff,unsigned long len, 
 				// update vlanconfig
 				update_vlanconfig(vid & 4095,portMask & 0x1FF, untagPortMask & 0x1FF);
 			}
+			#if defined(CONFIG_RTL_8309M_SUPPORT)
+                        else if ((!memcmp(cmd_addr, "83xx", 4)))
+                        {
+                                char *sub_cmd = NULL;
+                                int ret = FAILED, i = 0;
+                                uint32 mbrmsk = 0, untagmsk = 0, tagmsk = 0, fid = 0;
+
+                                sub_cmd = strsep(&strptr," ");
+                                if (sub_cmd==NULL)
+                                {
+                                        goto errout;
+                                }
+
+                                if ((!memcmp(sub_cmd, "dump", 4))){
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        rtlglue_printf("\n83xx vlan info:\n");
+                                        if ((!memcmp(tokptr, "all", 3))){
+
+                                                #if 1
+                                                for (i = 0; i <= RTL8309N_MAX_VLANINDEX; i++)
+                                                {
+
+                                                        ret = rtl8309n_vlan_entry_get(i, &vid, &mbrmsk, &untagmsk, &fid);
+                                                        if (ret != 0)
+                                                                continue;
+                                                        rtlglue_printf("vid %d Mbrmsk 0x%x Untagmsk 0x%x fid %u\n", i, mbrmsk, untagmsk, fid);
+                                                }
+                                                #endif
+
+                                        }else{
+                                                vid = simple_strtol(tokptr, NULL, 0);
+                                                ret = rtk_vlan_get(vid, &mbrmsk, &untagmsk, &fid);
+                                                if (ret == 0){
+                                                        rtlglue_printf("vid %d Mbrmsk 0x%x Untagmsk 0x%x fid %u\n", vid, mbrmsk, untagmsk, fid);
+                                                }
+                                                else{
+                                                        rtlglue_printf("get vlan vid %d error ! \n", vid);
+                                                }
+                                        }
+                                }
+				else if ((!memcmp(sub_cmd, "add", 3))){
+
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        vid=simple_strtol(tokptr, NULL, 0);
+
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        mbrmsk = simple_strtol(tokptr, NULL, 16);
+
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        untagmsk = simple_strtol(tokptr, NULL, 16);
+
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        fid = simple_strtol(tokptr, NULL, 0);
+
+                                        tagmsk = mbrmsk & (~untagmsk);
+                                        rtlglue_printf("%s vid = %d mbrmsk = 0x%x  tagmsk = 0x%x untagmsk = 0x%x fid = %u \n", sub_cmd, vid, mbrmsk, tagmsk, untagmsk, fid);
+                                        ret = rtk_vlan_set(vid, mbrmsk, untagmsk, fid);
+                                        if (ret == 0){
+                                                rtlglue_printf("%s vid %d success!\n", sub_cmd, vid);
+                                        }
+                                        else{
+                                                rtlglue_printf("%s vid %d failed!\n", sub_cmd, vid);
+                                        }
+
+                                }
+                                else if ((!memcmp(sub_cmd, "del", 3))){
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+
+                                        untagmsk = mbrmsk = fid = 0;
+                                        if (!memcmp(tokptr, "all", 3)){
+                                                for (i = 0; i <= RTL8309N_MAX_VLANINDEX; i++)
+                                                {
+
+                                                        ret = rtl8309n_vlan_entry_set(1, 0, 0, 0, 0);
+                                                }
+                                        }
+                                        else{
+                                                vid = simple_strtol(tokptr, NULL, 0);
+                                                ret = rtk_vlan_set(vid, mbrmsk, untagmsk, fid);
+                                                if (ret == 0){
+                                                        rtlglue_printf("%s vid %d success!\n", sub_cmd, vid);
+                                                }
+                                                else{
+                                                        rtlglue_printf("%s vid %d failed!\n", sub_cmd, vid);
+                                                }
+                                        }
+                                }
+				#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+                                else if ((!memcmp(sub_cmd, "vlan", 4))){
+                                        unsigned int port = 0;
+                                        extern int rtl_8309_vlan_en ;
+
+                                        tokptr = strsep(&strptr," ");
+                                        if (tokptr==NULL)
+                                        {
+                                                goto errout;
+                                        }
+                                        if (!memcmp(tokptr, "enable", 6)){
+                                                ret =  rtk_vlan_init();
+                                                for (port = 0; port <= SWITCH_MAX_PORT_NUM; port++){
+                                                        rtl8309n_vlan_igrPortTagInsertEnable_set(port, 1);
+                                                        rtl8309n_vlan_igrPortTagInsert_set(port, 0x1ff);
+                                                }
+                                                rtl_8309_vlan_en = 1;
+                                        }
+                                        else if (!memcmp(tokptr, "disable", strlen("disable"))){
+
+                                                rtl_8309_vlan_en = 0;
+                                                ret =  rtk_vlan_init();
+                                                rtl8309n_vlan_enable_set(0);
+                                                for (port = 0; port <= SWITCH_MAX_PORT_NUM; port++)
+                                                {
+                                                        rtl8309n_vlan_igrPortTagInsertEnable_set(port, 0);
+                                                }
+                                        }
+                                }
+                                #endif
+                        }
+                        #endif
 			return len;
 errout:
 			rtlglue_printf("vlan operation only support \"dump\" as the first parameter\n");
@@ -4138,6 +4303,10 @@ static int32 pvid_read(struct seq_file *s, void *v)
 {
 	uint32 vidp[9];
 	int32  i;
+	#if defined(CONFIG_RTL_8309M_SUPPORT)
+        uint32 pvid = 0, priority = 0;
+        int ret = 0;
+        #endif
 
 	for(i=0; i<RTL8651_PORT_NUMBER+rtl8651_totalExtPortNum; i++)
 	{
@@ -4150,6 +4319,15 @@ static int32 pvid_read(struct seq_file *s, void *v)
 	for(i=0; i<RTL8651_PORT_NUMBER+rtl8651_totalExtPortNum; i++)
 		seq_printf(s,"p%d: %d,", i, vidp[i]);
 	seq_printf(s,"\n");
+
+	#if defined(CONFIG_RTL_8309M_SUPPORT)
+        seq_printf(s,"\n83xx pvid:\n");
+        for (i = 0; i <= SWITCH_MAX_PORT_NUM; i++){
+                pvid = priority = 0;
+                ret = rtk_vlan_portPvid_get(i, &pvid, &priority);
+                seq_printf(s,"p%d: %d \n", i, (ret==0)? pvid : -1);
+        }
+        #endif
 
 	return 0;
 }
@@ -4201,28 +4379,53 @@ static int32 pvid_write( struct file *filp, const char *buff,unsigned long len, 
 		{
 			goto errout;
 		}
+		#if defined(CONFIG_RTL_8309M_SUPPORT)
+                if (!memcmp(tokptr, "83xx", 4)){
+                        int ret = 0;
+                        unsigned int priority = 0;
 
-		port=simple_strtol(tokptr, NULL, 0);
+                        tokptr = strsep(&strptr," ");
+                        if (tokptr==NULL)
+                        {
+                                goto errout;
+                        }
+                        port=simple_strtol(tokptr, NULL, 0);
 
-		if(port>(RTL8651_PORT_NUMBER+rtl8651_totalExtPortNum))
+                        tokptr = strsep(&strptr," ");
+                        if (tokptr==NULL)
+                        {
+                                goto errout;
+                        }
+                        pvid=simple_strtol(tokptr, NULL, 0);
+
+                        ret = rtk_vlan_portPvid_set(port, pvid, priority);
+
+                }
+                else
+                #endif
 		{
-			goto errout;
+			port=simple_strtol(tokptr, NULL, 0);
+
+			if(port>(RTL8651_PORT_NUMBER+rtl8651_totalExtPortNum))
+			{
+				goto errout;
+			}
+
+			tokptr = strsep(&strptr," ");
+			if (tokptr==NULL)
+			{
+				goto errout;
+			}
+
+			pvid=simple_strtol(tokptr, NULL, 0);
+
+			if(pvid>4096)
+			{
+				goto errout;
+			}
+
+			rtl8651_setAsicPvid( port,	pvid);
 		}
-
-		tokptr = strsep(&strptr," ");
-		if (tokptr==NULL)
-		{
-			goto errout;
-		}
-
-		pvid=simple_strtol(tokptr, NULL, 0);
-
-		if(pvid>4096)
-		{
-			goto errout;
-		}
-
-		rtl8651_setAsicPvid( port,	pvid);
 
 		return len;
 		errout:
@@ -4399,6 +4602,10 @@ static int32 l2_read(struct seq_file *s, void *v)
 			seq_printf(s,"\n");
 		}
 	}
+
+	#if defined(CONFIG_RTL_8309M_VLAN_SUPPORT)
+        get_all_ucast_l2();
+        #endif
 
 	return 0;
 

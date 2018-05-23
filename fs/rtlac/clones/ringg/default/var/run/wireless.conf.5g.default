@@ -30,3 +30,5 @@ basicrate_bitmap=0
 afterburner=0
 wmm=1
 wl_mode=1
+stbc=on
+ldpc=on

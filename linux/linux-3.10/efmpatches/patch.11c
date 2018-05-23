@@ -1,6 +1,7 @@
 Title   11B -> 11C SDK UPDATE & official patches
 Date    2017.07.04
 Who     hykim
+F.ver	10.00.4
 Product All products for using SDK 3.4.11B
 Tree    rtlac
 Files	
@@ -35,6 +36,7 @@ Contents
 Title   Storm control remove patch
 Date    2017.07.11
 Who     hykim
+F.ver	10.00.4
 Product All products for using SDK 3.4.11C
 Tree    rtlac
 Files	
@@ -45,6 +47,7 @@ Contents
 Title   V508 (97fs+8309M) config update
 Date    2017.07.24
 Who     hykim
+F.ver	10.00.6
 Product V508
 Tree    rtlac
 Files	
@@ -55,6 +58,7 @@ Contents
 Title   20170720_3411c_mu_patch
 Date    2017.07.24
 Who     hykim
+F.ver	10.00.6
 Product All products for using SDK 3.4.11C
 Tree    rtlac
 Files
@@ -111,6 +115,7 @@ Contents
 Title   Config file update
 Date    2017.07.27
 Who     hykim
+F.ver	10.00.6
 Product V508
 Tree    rtlac
 Files
@@ -131,6 +136,7 @@ Contents
 Title   Extender GIGA support update
 Date    2017.07.28
 Who     hykim
+F.ver	10.00.6
 Product All products for using SDK 3.4.11C
 Tree    rtlac
 Files
@@ -145,6 +151,7 @@ Contents
 Title   patch_for_96d_8194_issues
 Date    2017.08.08
 Who     hykim
+F.ver	10.00.8
 Product All products for using SDK 3.4.11C
 Tree    rtlac
 Files
@@ -156,6 +163,7 @@ Contents
 Title   Wireless config update
 Date    2017.08.10
 Who     hykim
+F.ver	10.00.8
 Product RING-GIGA EXTENDER-GIGA
 Tree    rtlac
 Files
@@ -168,6 +176,7 @@ Contents
 Title   RING-GIGA Support update
 Date    2017.08.11
 Who     hykim
+F.ver	10.00.8
 Product RING-GIGA
 Tree    rtlac
 Files
@@ -181,3 +190,121 @@ Files
 Contents
         RING-GIGA Support update
 ---------------------------------------------------------------------
+Title   Wireless Driver Update
+Date    2017.08.18
+Who     hykim
+F.ver	10.00.8
+Product All products for using sdk 3.4.11C
+Tree    rtlac
+Files
+	M linux-3.10/drivers/net/wireless/rtl8192cd/8192cd_cfg.h
+	M linux-3.10/drivers/net/wireless/rtl8192cd/8192cd_sme.c
+	M linux-3.10/drivers/net/wireless/rtl8192cd/8192cd_tx.c
+	M linux-3.10/drivers/net/wireless/rtl8192cd/Beamforming.c
+	M linux-3.10/drivers/net/wireless/rtl8192cd/WlanHAL/RTL88XX/Hal88XXFirmware.c
+Contents
+	20170815_3411c_mu_patch_8194_issue
+---------------------------------------------------------------------
+Title   A2003NM USB TETHERING support update
+Date    2017.08.22
+Who     hykim
+F.ver	10.01.0
+Product A2003NM
+Tree    rtlac
+Files
+	M config.8197f.8197f.8812br.8367r
+Contents
+	USB Tethering support update
+---------------------------------------------------------------------
+Title   V508 Public IPTV support update
+Date    2017.09.01
+Who     hykim
+F.ver	10.01.0
+Product V508
+Tree    rtlac
+Files
+	M linux-3.10/configs/config.8197f.8309m
+	M linux-3.10/drivers/net/rtl819x/Kconfig
+	M linux-3.10/drivers/net/rtl819x/rtl865x_proc_debug.c
+	M linux-3.10/drivers/net/rtl819x/rtl_nic.c
+	M linux-3.10/drivers/net/rtl819x/rtl8309m/rtk_api.c
+	M linux-3.10/net/bridge/br_forward.c
+	M linux-3.10/net/bridge/br_input.c
+Contents
+	RTL8197F + RTL8309M Tagged VLAN support update
+Directive
+	CONFIG_RTL_8309M_VLAN_SUPPORT
+---------------------------------------------------------------------
+Title   SOML patch from realtek
+Date    2017.09.18
+Who     scchoi
+F.ver	10.01.4
+Tree    rtlac
+Files
+	linux-3.10/drivers/net/rtl8192cd/8192cd_hw.c
+	linux-3.10/drivers/net/rtl8192cd/8192cd_util.h
+	linux-3.10/drivers/net/rtl8192cd/Makefile
+	linux-3.10/drivers/net/rtl8192cd/phydm/phydm.c
+	linux-3.10/drivers/net/rtl8192cd/phydm/phydm.h
+	linux-3.10/drivers/net/rtl8192cd/phydm/phydm_debug.c
+	linux-3.10/drivers/net/rtl8192cd/phydm/phydm_debug.h
+	linux-3.10/drivers/net/rtl8192cd/phydm/phydm_features.h
+	linux-3.10/drivers/net/rtl8192cd/phydm/rtl8822b/phydm_hal_api8822b.c
+	linux-3.10/drivers/net/rtl8192cd/phydm/rtl8822b/phydm_rtl8822b.c
+	linux-3.10/drivers/net/rtl8192cd/phydm/rtl8822b/phydm_rtl8822b.h
+Contents
+	dynamic_SOML_on_8822b_97f_SDK3411c patch from realtek.
+	Increase Rx throuhgput.
+---------------------------------------------------------------------
+Title   Fix Iphone IOT issue
+Date    2017.09.19
+Who     scchoi
+Version	10.01.4
+Tree    rtlac
+Files
+	linux-3.10/drivers/net/rtl8192cd_8194ar/8192cd.h
+        linux-3.10/drivers/net/rtl8192cd_8194ar/8192cd_ioctl.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/8192cd_osdep.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/8192cd_sme.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm.h
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm_debug.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm_debug.h
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm_dig.c
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm_dig.h
+        linux-3.10/drivers/net/rtl8192cd_8194ar/phydm/phydm_features.h
+
+Contents
+	20170918_SDK-v3.4.11c-8194_TDMA-DIG-patch.zip is applied
+	Sometimes, iphone shows "invalid password" and can't connect during some period.
+---------------------------------------------------------------------
+Title   rtl8192cd_zion_TP_PK_issue_20170920 applied
+Date    2017.09.19
+Who     scchoi
+Version	10.01.4
+Tree    rtlac
+Files
+	linux-3.10/drivers/net/rtl8192cd/8192cd_ioctl.c
+	linux-3.10/drivers/net/rtl8192cd/phydm/rtl8197f/halhwimg8197f_bb.c
+
+Contents
+	Apply difference. 
+	tx_pwr_ctrl default OFF
+	linux-3.10/drivers/net/rtl8192cd/phydm/rtl8197f/halhwimg8197f_bb.c --> Patch for long distance RX
+---------------------------------------------------------------------
+Title   KRACK Patch - WPA2 security patch
+Who     scchoi
+Date    2017.10.24
+Files
+        M drivers/net/wireless/rtl8192cd/8192cd.h
+        M drivers/net/wireless/rtl8192cd/8192cd_proc.c
+        M drivers/net/wireless/rtl8192cd/8192cd_psk.c
+        M drivers/net/wireless/rtl8192cd/8192cd_psk.h
+        M drivers/net/wireless/rtl8192cd/8192cd_rx.c
+        M drivers/net/wireless/rtl8192cd/8192cd_security.c
+        M drivers/net/wireless/rtl8192cd/8192cd_util.c
+
+Changes
+        KRACK Patch from realtek
+--------------------------------------------------------------------------
+

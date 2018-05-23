@@ -11,7 +11,6 @@ deps_drivers/net/rtl819x/rtl865x/../rtl8309m/rtk_api.o := \
     $(wildcard include/config/efm/patch.h) \
     $(wildcard include/config/rtl/8309m/support.h) \
     $(wildcard include/config/rtl/dns/trap.h) \
-    $(wildcard include/config/efm/patch/xxx.h) \
     $(wildcard include/config/rtl/exchange/portmask.h) \
     $(wildcard include/config/rtl/ivl/support.h) \
     $(wildcard include/config/rtl/vlan/8021q.h) \
@@ -22,6 +21,7 @@ deps_drivers/net/rtl819x/rtl865x/../rtl8309m/rtk_api.o := \
     $(wildcard include/config/rtl/8367/qos/support.h) \
     $(wildcard include/config/rtl/8367/qos/test.h) \
     $(wildcard include/config/rtl/8198c.h) \
+    $(wildcard include/config/rtl/8309m/vlan/support.h) \
   include/linux/string.h \
     $(wildcard include/config/binary/printf.h) \
   include/linux/compiler.h \

@@ -26,3 +26,5 @@ beacon_interval=100
 aggregation=on
 txrate=0
 basicrate_bitmap=0
+stbc=on
+ldpc=on
